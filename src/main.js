@@ -39,8 +39,7 @@ const createHTML = ({html, js, css}) => {
     </head>
     <body>
       ${html}
-      <script >
-      console.clear()
+      <script type="text/javascript">
         ${js}
       </script>
     </body>
@@ -64,14 +63,19 @@ const update = () => {
 
 const init = () => {
   const {pathname} = window.location;
-  const [ html, css, js ] = pathname.slice(1).split('%7C');
-
+  const [ rawHtml, rawCss, rawJs ] = pathname.slice(1).split('%7C');
+  const html = rawHtml??'';
+  const css = rawCss??'';
+  const js = rawJs??'';
   if(html!=='' || css!=='' || js!==''){
     $html.value = decode(html);
     $css.value = decode(css);
     $js.value = decode(js);
 
     update();
+  }
+  else {
+    console.clear();
   }
 }
 
