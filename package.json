@@ -1,0 +1,24 @@
+{
+  "name": "coddeed-play",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "js-base64": "^3.7.7",
+    "split-grid": "^1.0.11",
+    "split.js": "^1.6.5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/vite/dist/eslint.js"
+    ]
+  }
+}
