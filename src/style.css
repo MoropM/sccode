@@ -23,31 +23,54 @@ textarea {
   resize: none;
   border: 1px solid #eee;
   /* outline: none; */
-  background-color: #333;
-  font-family: monospace;
-  padding: .5rem;
+  /* background-color: #333; */
+  background-color: #444444;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-top: 1rem;
+  padding-right: .5rem;
+  padding-bottom: .5rem;
+  padding-left: .5rem;
 
   background-position: calc(100% - 16px) calc(100% - 16px); 
   background-repeat: no-repeat;
-  background-size: 36px;
+  background-size: 33px;
+
+  scrollbar-width: thin;
 }
 textarea:focus {
   outline: 0;
 }
 .html textarea {
   background-image: url('assets/html.svg');
+  /* color: #e34f26; */
+  color: #ffa48b;
+}
+.html textarea:focus {
+  border: 1px solid rgb(227 79 38 / 50%);
 }
 .js textarea {
   background-image: url('assets/javascript.svg');
+  color: rgb(247 223 30);
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+.js textarea:focus {
+  border: 1px solid rgb(247 223 30 / 50%);
 }
 .css textarea {
   background-image: url('assets/css.svg');
+  /* color: #264de4; */
+  color: rgb(177 193 255)
 }
+.css textarea:focus {
+  border: 1px solid rgba(38, 77, 228, .5);
+}
+
 
 iframe {
   width: 100%;
   height: 100%;
   background-color: #fff;
+  
 }
 
 .grid {
@@ -56,6 +79,8 @@ iframe {
   grid-template-columns: 1fr 5px 1fr;
   width: calc(100vw - 5px);
   height: calc(100vh - 5px);
+  width: calc(100dvw - 5px);
+  height: calc(100dvh - 5px);
 }
 
 .gutter-col {

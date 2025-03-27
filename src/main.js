@@ -23,17 +23,24 @@ Split({
 })
 
 const createHTML = ({html, js, css}) => {
-  
   return `<!doctype html>
   <html lang="es">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <style>${css}</style>
+      <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+      ${css}</style>
     </head>
     <body>
       ${html}
-      <script type="module">
+      <script >
+      console.clear()
         ${js}
       </script>
     </body>
