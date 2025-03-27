@@ -11,11 +11,7 @@ body {
   margin: 0;
   padding: 0;
 }
-#app {
-  /* width: 100vw;
-  height: 100vh; */
-  
-}
+
 
 textarea {
   width: 100%;
@@ -40,29 +36,35 @@ textarea {
 textarea:focus {
   outline: 0;
 }
-.html textarea {
+.editor {
+  position: relative;
+}
+.editor::after {
+  content: '';
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: 33px;
+  right: 16px;
+  bottom: 16px;
+  width: 33px;
+  height: 33px;
+  z-index: 8;
+}
+.html::after {
   background-image: url('assets/html.svg');
-  /* color: #e34f26; */
-  color: #ffa48b;
 }
-.html textarea:focus {
+/* .html textarea:focus {
   border: 1px solid rgb(227 79 38 / 50%);
-}
+} */
 .js textarea {
   background-image: url('assets/javascript.svg');
   color: rgb(247 223 30);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
-.js textarea:focus {
-  border: 1px solid rgb(247 223 30 / 50%);
-}
 .css textarea {
   background-image: url('assets/css.svg');
   /* color: #264de4; */
   color: rgb(177 193 255)
-}
-.css textarea:focus {
-  border: 1px solid rgba(38, 77, 228, .5);
 }
 
 
@@ -103,3 +105,7 @@ iframe {
   grid-row: 2;
 }
 
+/* Estilos de para monaco editor */
+.monaco-editor {
+  padding-top: 15px;
+}
