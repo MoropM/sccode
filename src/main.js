@@ -166,7 +166,7 @@ const update = () => {
 
 window.addEventListener('DOMContentLoaded', () => {
   console.info(  window.screen.width  );
-  window.screen.width<768?initSplit('vertical'):initSplit();
+  window.screen.width<768?initSplit('horizontal'):initSplit();
   // initSplit()
   initEditors()
 
