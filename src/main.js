@@ -25,7 +25,8 @@ let htmlEditor = null, jsEditor = null, cssEditor = null;
 const OPTIONS_EDITORS = {
   fontSize: 14,
   lineNumbers: 'on',
-  tabSize: 2,
+  lineNumbersMinChars: 2,
+  tabSize: 4,
   wordWrap: 'on',
   theme: 'vs-dark',
   // theme: 'hc-black',
