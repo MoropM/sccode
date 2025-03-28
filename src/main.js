@@ -55,7 +55,7 @@ window.MonacoEnvironment = {
 
 
 const {pathname} = window.location;
-const [ rawHtml, rawCss, rawJs ] = pathname.slice(1).split('%7C');
+const [ rawHtml, rawCss, rawJs ] = pathname.includes('%7C')?pathname.slice(1).split('%7C'):pathname.slice(1).split('|');
 let htmlVal = rawHtml??'';
 htmlVal =  htmlVal.trim()!=''?decode(htmlVal):'';
 let cssVal = rawCss??''; 
@@ -65,7 +65,6 @@ jsVal =  jsVal.trim()!=''?decode(jsVal):'';
 
 
 const initSplit = (typeSplit = 'grid', numCols = 3) => {
-  console.log( typeSplit, numCols );
   if(typeSplit==='grid'){
       Split({
         columnGutters: [{
@@ -166,7 +165,16 @@ const update = () => {
 
 window.addEventListener('DOMContentLoaded', () => {
   console.info(  window.screen.width  );
-  window.screen.width<768?initSplit('horizontal'):initSplit();
+  if(window.screen.width>=768){initSplit();}
+  if(window.screen.width<768 && window.screen.width>=550){
+    initSplit('horizontal')
+  }
+  if(window.screen.width<550){
+    document.querySelector('.split').classList.add('split_vertical');
+    document.querySelector('#app').classList.add('vertical');
+    $prevUniqIFrame.classList.add('vertical');
+    initSplit('vertical')
+  }
   // initSplit()
   initEditors()
 
