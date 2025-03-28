@@ -11,20 +11,22 @@
     <div id="app">
 
       <div class="grid">
-        <!-- <textarea name="" id="html" placeholder="HTML" ></textarea> -->
-          <div class="html editor" id="html" >
-          </div>
+          <div class="html editor" id="html" ></div>
           <div class="gutter-col gutter-col-1"></div>
-          <div class="js editor">
-            <textarea name="" id="js" placeholder="JS" ></textarea>
-          </div>
-          <div class="css editor">
-            <textarea name="" id="css" placeholder="CSS" ></textarea>
-          </div>
+          <div class="js editor" id="js" ></div>
+          <div class="css editor" id="css" ></div>
           <div class="gutter-row gutter-row-1"></div>
-          <div>
+          <div class="preview" id="previewIFrame" >
             <iframe src="" frameborder="0"></iframe>
           </div>
+      </div>
+
+      <div class="split">
+          <div id="split-0" class="split_item"></div>
+          <div id="split-1" class="split_item"></div>
+          <div id="split-2" class="split_item"></div>
+      </div>
+      <div class="preview preview_unique" id="previewUniqIFrame" >
       </div>
 
     </div>
