@@ -20,6 +20,8 @@ const $split2 = $('#split-2')
 const $prevIFrame = $('#previewIFrame')
 const $prevUniqIFrame = $('#previewUniqIFrame')
 const $iframe = $('iframe')
+const $btnCopyUrl = $('#btnCopyUrl')
+const $viewEditors = $('#viewEditors')
 
 let htmlEditor = null, jsEditor = null, cssEditor = null;
 const OPTIONS_EDITORS = {
@@ -40,7 +42,7 @@ const OPTIONS_EDITORS = {
   scrollBeyondLastLine: false,
   roundedSelection: false,
   padding: {
-    top: 16
+    top: 19
   },
   
 }
@@ -85,25 +87,47 @@ const initSplit = (typeSplit = 'grid', numCols = 3) => {
   })
 }
 
-const initEditors = () => {
-  htmlEditor = monaco.editor.create($html, {
-    value: htmlVal,
-    language: 'html',
-    ...OPTIONS_EDITORS,
-  });
+const initEditors = (especificEditor='') => {
+  if(especificEditor===''){
+      htmlEditor = monaco.editor.create($html, {
+        value: htmlVal,
+        language: 'html',
+        ...OPTIONS_EDITORS,
+      });
+    
+      jsEditor = monaco.editor.create($js, {
+        // value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+        value: jsVal,
+        language: 'javascript',
+        ...OPTIONS_EDITORS,
+      });
+      
+      cssEditor = monaco.editor.create($css, {
+        value: cssVal,
+        language: 'css',
+        ...OPTIONS_EDITORS,
+      });
+  }
+  else {
+    const editors = document.querySelectorAll('.editor')??null;
+    editors.forEach(el=>{
+      if(htmlEditor!==null)htmlEditor.dispose(); // Elimina la instancia y libera recursos
+      if(jsEditor!==null)jsEditor.dispose(); // Elimina la instancia y libera recursos
+      if(cssEditor!==null)cssEditor.dispose(); // Elimina la instancia y libera recursos
 
-  jsEditor = monaco.editor.create($js, {
-    // value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-    value: jsVal,
-    language: 'javascript',
-    ...OPTIONS_EDITORS,
-  });
-  
-  cssEditor = monaco.editor.create($css, {
-    value: cssVal,
-    language: 'css',
-    ...OPTIONS_EDITORS,
-  });
+      if(el.id!=especificEditor) {
+        const newElementSelector = document.querySelector(`#${el.id}`);
+        const newEditorEl = monaco.editor.create(newElementSelector, {
+          value: el.id=='html'?htmlVal:el.id=='js'?jsVal:cssVal,
+          language: el.id=='js'?'javascript':el.id,
+          ...OPTIONS_EDITORS,
+        });
+        if(el.id==='html') htmlEditor = newEditorEl;
+        if(el.id==='js') jsEditor = newEditorEl;
+        if(el.id==='css') cssEditor = newEditorEl;
+      }
+    });
+  }
   
   if(window.screen.width>=768){
     document.querySelector('.split').style.display = 'none';
@@ -162,10 +186,20 @@ const update = () => {
   const htmlForPreview = createHTML({html, js, css})
   $iframe.srcdoc = htmlForPreview;
   window.screen.width<768?$prevUniqIFrame.appendChild($iframe):$prevIFrame.appendChild($iframe);
+  console.clear();
 }
 
+const newAlert = (element, msg = `Link copiado al portapapeles`) => {
+  const alert = document.createElement('div');
+  alert.classList.add('alert', 'show');
+  alert.innerHTML = msg;
+  element.parentNode.appendChild(alert);
+  element.classList.add('active');
+  setTimeout(()=>element.classList.remove('active'), 600);
+  setTimeout(()=>alert.classList.remove('show'), 1500);
+  setTimeout(()=>alert.remove(), 1900);
+}
 window.addEventListener('DOMContentLoaded', () => {
-  console.info(  window.screen.width  );
   if(window.screen.width>=768){initSplit();}
   if(window.screen.width<768 && window.screen.width>=550){
     initSplit('horizontal')
@@ -190,6 +224,32 @@ window.addEventListener('DOMContentLoaded', () => {
     update();
   }
 
+  if($btnCopyUrl!==null){
+    $btnCopyUrl.addEventListener('click', ()=>{
+      navigator.clipboard.writeText(window.location.href);
+      newAlert($btnCopyUrl);
+    });
+  }
+  // if($viewEditors!==null){
+  //   $viewEditors.addEventListener('change', (e)=>{
+  //     const val = e.target.value;
+  //     const editors = document.querySelectorAll('.editor')??null;
+  //     if(val===''){
+  //       editors.forEach(el=>el.parentNode.style.display = 'block');
+  //       // return;
+  //     }
+  //     else {
+  //       editors.forEach(el=>{
+  //         const editorToHide = el.id == val ? el : null;
+  //         el.parentNode.style.display = 'inherit';
+  //         if(editorToHide!==null){
+  //           el.parentNode.style.display = 'none';
+  //           initEditors(el.id)
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 })
 
 

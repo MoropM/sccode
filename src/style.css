@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 :root {
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
 }
 
 body {
@@ -17,6 +17,8 @@ body {
   margin: 0;
   padding: 0;
   scrollbar-width: thin;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #222;
 }
 #app.vertical {
   overflow-y: auto;
@@ -27,12 +29,76 @@ body {
   height: 40px;
   z-index: 10;
   background-color: #222;
+  display: flex;
+  justify-content: space-between;
+  /* justify-content: flex-end; */
+  align-items: center;
+  color: #fff;
 }
+.navbar_actions {
+  display: flex;
+  /* justify-content: center; */
+  justify-content: flex-end;
+  align-items: center;
+  gap: .5rem;
+  padding: 0 .5rem;
+  position: relative;
+  width: 100%;
+}
+.navbar_actions-vieweditor {
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: .75rem;
+    
+    margin-bottom: .1rem;
+  }
+}
+.navbar_actions button {
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  opacity: .4;
+  cursor: pointer;
+  transition: opacity .3s ease;
+  &:hover {
+    opacity: 1;
+  }
+  &.active {
+    color: rgb(6, 179, 6);
+    border-color: rgb(6, 179, 6);
+    opacity: 1;
+  }
+}
+.navbar_actions .alert {
+  position: absolute;
+  right: 10px;
+  top: -30px;
+  font-size: 12px;
+  opacity: 0;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: all .3s ease;
+}
+
+.navbar_actions .alert.show {
+  opacity: 1;
+  top: 30px;
+  background: rgb(6, 179, 6, .4);
+}
+
+
 
 .editor {
   position: relative;
   width: calc(100% - 2px);
-  /* width: 100%; */
   height: 100%;
   min-height: .5vh;
 }
@@ -40,12 +106,13 @@ body {
   content: '';
   position: absolute;
   background-repeat: no-repeat;
-  background-size: 33px;
+  background-size: 20px;
   right: 16px;
-  bottom: 16px;
-  width: 33px;
-  height: 33px;
+  bottom: 10px;
+  width: 20px;
+  height: 20px;
   z-index: 8;
+  opacity: .4;
 }
 .html::after {
   background-image: url('assets/html.svg');
@@ -111,18 +178,18 @@ iframe {
   height: calc(100vh /  1.68);
   height: calc(100dvh /  1.68);
 }
+
 .split.split_vertical {
   flex-direction: column;
   width: 100%;
   height: calc(100dvh / 1.68);
 }
 .split_item {
-  width: calc(100% / 3.3);
-  /* height: calc(100% - 5px) !important; */
+  position: relative;
 }
 .split.split_vertical .split_item {
+  position: relative;
   width: 100%;
-  /* height: calc(100% / 3.2 ) !important; */
 }
 .split_item .editor {
   width: 100%;
@@ -151,6 +218,7 @@ iframe {
 
 
 .preview_unique {
+  background-color: #fff;
   height: calc(100vh / 2.5 - 40px);
   height: calc(100dvh / 2.5 - 40px);
 }
