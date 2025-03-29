@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/MoropM/sccode" target="_blank"><img src="https://raw.githubusercontent.com/MoropM/sccode/refs/heads/master/public/sscode.webp" width="400"></a>
+    <a href="https://github.com/MoropM/sccode" target="_blank"><img src="https://raw.githubusercontent.com/MoropM/sccode/refs/heads/master/public/sscode.webp?token=GHSAT0AAAAAAC4JQGGUSIGUNH6CZOQ3GZFEZ7HJ6EQ" width="400"></a>
 </p>
 
 # SCCode - Simple Creation Code
