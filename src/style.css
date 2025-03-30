@@ -91,7 +91,13 @@ body {
 .navbar_actions .alert.show {
   opacity: 1;
   top: 30px;
-  background: rgb(6, 179, 6, .4);
+  background: rgba(176, 179, 6, 0.4);
+  &.error {
+    background: rgba(179, 6, 6, 0.4);
+  }
+  &.success {
+    background: rgb(6, 179, 6, .4);
+  }
 }
 
 

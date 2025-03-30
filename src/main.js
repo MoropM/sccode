@@ -67,6 +67,23 @@ let jsVal = rawJs??'';
 jsVal =  jsVal.trim()!=''?decode(jsVal):'';
 
 
+const fechingAsync = async (uriData) => {
+  let headersList = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  };
+  let bodyContent = JSON.stringify({
+    "url": uriData
+  });
+  const response = await fetch("https://api-shorturi.moropm.com/api/shorten-url", { 
+    method: "POST",
+    body: bodyContent,
+    headers: headersList
+  });
+  const data = await response.json();
+  return data;
+}
+
 const initSplit = (typeSplit = 'grid', numCols = 3) => {
   if(typeSplit==='grid'){
       Split({
@@ -189,9 +206,9 @@ const update = () => {
   console.clear();
 }
 
-const newAlert = (element, msg = `Link copiado al portapapeles`) => {
+const newAlert = (element, msg = `Link copiado al portapapeles`, typeAlert = 'success') => {
   const alert = document.createElement('div');
-  alert.classList.add('alert', 'show');
+  alert.classList.add('alert', 'show', typeAlert);
   alert.innerHTML = msg;
   element.parentNode.appendChild(alert);
   element.classList.add('active');
@@ -226,8 +243,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if($btnCopyUrl!==null){
     $btnCopyUrl.addEventListener('click', ()=>{
-      navigator.clipboard.writeText(window.location.href);
-      newAlert($btnCopyUrl);
+      const promNewUri = new Promise( (resolve, reject) => {
+        fechingAsync(window.location.href).then(result=>resolve(result)).catch(error=>reject(error));
+      })
+      promNewUri.then(response=>{
+        const { status, message, description, data } = response;
+        if(status && 'url' in data ) {
+          navigator.clipboard.writeText(data.url);
+          newAlert($btnCopyUrl);
+        }
+        else {
+          navigator.clipboard.writeText(window.location.href);
+          newAlert($btnCopyUrl, message, 'warning');
+        }
+      }).catch(error=>{
+        console.log(error);
+        navigator.clipboard.writeText(window.location.href);
+        newAlert($btnCopyUrl, 'La url no se pude acortar', 'error');
+      });
     });
   }
   // if($viewEditors!==null){
