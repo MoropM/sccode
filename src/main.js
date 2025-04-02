@@ -75,7 +75,7 @@ const fechingAsync = async (uriData) => {
   let bodyContent = JSON.stringify({
     "url": uriData
   });
-  const response = await fetch("https://api-shorturi.moropm.com/api/shorten-url", { 
+  const response = await fetch("https://shorturi.moropm.com/api/shorten-url", { 
     method: "POST",
     body: bodyContent,
     headers: headersList
